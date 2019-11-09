@@ -11,12 +11,9 @@ def prepare_x_ray_data(path, labels, img_width, img_height):
     x_ray_dev = pd.read_csv(path, header = 0)
     x_ray_dev.dropna(inplace=True)
 
-<<<<<<< HEAD
     # Remove rows with more than one Finding Label
     x_ray_dev = x_ray_dev[~x_ray_dev['Finding Labels'].str.contains('\\|')]
 
-=======
->>>>>>> 34496e39c6a0f4fe9078b227d55ee92e5a8d6c5f
     # Create list of Finding Labels
     finding_Labels = sorted(x_ray_dev['Finding Labels'].unique())
 
@@ -33,7 +30,6 @@ def prepare_x_ray_data(path, labels, img_width, img_height):
     # Replace Finding Labels with Finding IDs
     x_ray_dev = x_ray_dev.replace({'Finding Labels': label_IDs})
 
-<<<<<<< HEAD
     # Drop irrelevant/unused columns
     x_ray_dev = x_ray_dev.drop(x_ray_dev.columns[range(2, 11)], axis=1)
 
@@ -41,15 +37,6 @@ def prepare_x_ray_data(path, labels, img_width, img_height):
     result = [(x, y) for x, y in zip(x_ray_dev['Image Index'], x_ray_dev['Finding Labels'])]
 
     # Create a dataframe of the flat image matrices and associated labels
-=======
-    # # Drop irrelevant/unused columns
-    x_ray_dev = x_ray_dev.drop(x_ray_dev.columns[range(2, 11)], axis=1)
-
-    # # Put the Image Index and Finding ID in an iterable list
-    result = [(x, y) for x, y in zip(x_ray_dev['Image Index'], x_ray_dev['Finding Labels'])]
-
-    # # Create a dataframe of the flat image matrices and associated labels
->>>>>>> 34496e39c6a0f4fe9078b227d55ee92e5a8d6c5f
     def process_image_data():
         training_data = []
         for item in result:
@@ -66,11 +53,7 @@ def prepare_x_ray_data(path, labels, img_width, img_height):
     # Create initial data and shuffle the rows
     image_data = process_image_data().sample(frac=1)
 
-<<<<<<< HEAD
     X, y = image_data.iloc[:, :-1], image_data.iloc[:, -1]
-=======
-    X, y = image_data.loc[:, image_data.columns != 2500], image_data[2500]
->>>>>>> 34496e39c6a0f4fe9078b227d55ee92e5a8d6c5f
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
     X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.2, random_state=1)
@@ -83,46 +66,9 @@ def prepare_x_ray_data(path, labels, img_width, img_height):
     X_test_s = scaler.fit_transform((X_test.values))
     X_test = pd.DataFrame(X_test_s, index=X_test.index, columns=X_test.columns)
 
-<<<<<<< HEAD
     return X_train, X_val, X_test, y_train, y_val, y_test
 
 # Use the function (provide a path, select input labels, and call the function)
 # path = '/Users/gk/Desktop/sample/sample_labels.csv'
 # input_labels = ['Pneumothorax', 'Effusion']
 # X_train, X_val, X_test, y_train, y_val, y_test = prepare_x_ray_data(path, input_labels, 100, 100)
-=======
-    return X_train, X_test, X_val, y_train,y_val, y_test
-
-# Use the function (provide a path, select input labels, and call the function)
-path = '/Users/gk/Desktop/sample/sample_labels.csv'
-input_labels = ['Pneumothorax', 'Pneumonia']
-X_train, X_test, X_val, y_train,y_val, y_test = prepare_x_ray_data(path, input_labels, 100, 100)
-print(X_train)
-
-# Logistic Regression
-# logistic_model = LogisticRegression(solver='liblinear', penalty='l1')
-# logistic_model.fit(X_train,y_train)
-# logistic_pred = logistic_model.predict(X_test)
-
-# conf_matrix = confusion_matrix(y_test,logistic_pred)
-# logistic_accuracy = metrics.accuracy_score(y_test,logistic_pred,normalize=True)
-# logistic_error = 1 - logistic_accuracy
-# logistic_precision = metrics.precision_score(y_test,logistic_pred)
-# logistic_recall = metrics.recall_score(y_test,logistic_pred)
-# logistic_f1 = metrics.f1_score(y_test,logistic_pred)
-
-# feature_columns = x_ray_dev.columns.values[:-1]
-# print(feature_columns)
-# feature_columns.insert(0,"intercept")
-# thetas = np.insert(logistic_model.coef_, 0, logistic_model.intercept_, axis=1)
-# logistic_coefficients = pd.DataFrame(np.transpose(thetas),index=feature_columns, columns = ["Values"])
-# thetas_df = pd.DataFrame(np.transpose(thetas),index=feature_columns, columns = ["Value"])
-
-#Seaborn Confusion Matrix
-# plt.figure(figsize=(2,2))
-# sns.heatmap(cm, annot=True, fmt=".3f", linewidths=.5, cmap= 'Blues_r')
-# plt.ylabel('Actual Label')
-# plt.xlabel('Predicted Label')
-# all_sample_title = 'Accuracy Score: {0}'.format(score)
-# plt.title(all_sample_title, size = 15)
->>>>>>> 34496e39c6a0f4fe9078b227d55ee92e5a8d6c5f
