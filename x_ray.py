@@ -5,10 +5,10 @@ import pandas as pd
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 
-def prepare_x_ray_data(path, labels, img_width, img_height):
+def prepare_x_ray_data(csv_path, image_path, labels, img_width, img_height):
 
     # Load file from path and drop NA values
-    x_ray_dev = pd.read_csv(path, header = 0)
+    x_ray_dev = pd.read_csv(csv_path, header = 0)
     x_ray_dev.dropna(inplace=True)
 
     # Remove rows with more than one Finding Label
@@ -42,7 +42,7 @@ def prepare_x_ray_data(path, labels, img_width, img_height):
     for item in result:
         file = item[0]
         label = item[1]
-        path = os.path.join('/Users/gk/Desktop/sample/sample/images/', file)
+        path = os.path.join(image_path, file)
         img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)  # load the image as a matrix
         img = cv2.resize(img, (img_width, img_height))  # resize the image / matrix
         img = img.flatten()  # flatten the matrix
@@ -67,7 +67,8 @@ def prepare_x_ray_data(path, labels, img_width, img_height):
     return X_train, X_val, X_test, y_train, y_val, y_test
 
 # Use the function (provide a path, select input labels, and call the function)
-# path = '/Users/gk/Desktop/sample/sample_labels.csv'
+# csv_path = '/Users/gk/Desktop/sample/sample_labels.csv'
+# image_path = '/Users/gk/Desktop/sample/sample/images/'
 # input_labels = ['Pneumothorax', 'Effusion']
-# X_train, X_val, X_test, y_train, y_val, y_test = prepare_x_ray_data(path, input_labels, 100, 100)
+# X_train, X_val, X_test, y_train, y_val, y_test = prepare_x_ray_data(csv_path, image_path, input_labels, 100, 100)
 
