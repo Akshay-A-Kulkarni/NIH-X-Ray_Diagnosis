@@ -36,22 +36,20 @@ def prepare_x_ray_data(path, labels, img_width, img_height):
     # Put the Image Index and Finding ID in an iterable list
     result = [(x, y) for x, y in zip(x_ray_dev['Image Index'], x_ray_dev['Finding Labels'])]
 
-    # Create a dataframe of the flat image matrices and associated labels
-    def process_image_data():
-        training_data = []
-        for item in result:
-            file = item[0]
-            label = item[1]
-            path = os.path.join('/Users/gk/Desktop/sample/sample/images/', file)
-            img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)  # load the image as a matrix
-            img = cv2.resize(img, (img_width, img_height))  # resize the image / matrix
-            img = img.flatten()  # flatten the matrix
-            data = np.append(img, label)  # combine the image matrix and label
-            training_data.append(data)
-        return pd.DataFrame(training_data)
+    # Create a data frame of the flat image matrices and associated labels, and shuffle
+    training_data = []
 
-    # Create initial data and shuffle the rows
-    image_data = process_image_data().sample(frac=1)
+    for item in result:
+        file = item[0]
+        label = item[1]
+        path = os.path.join('/Users/gk/Desktop/sample/sample/images/', file)
+        img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)  # load the image as a matrix
+        img = cv2.resize(img, (img_width, img_height))  # resize the image / matrix
+        img = img.flatten()  # flatten the matrix
+        data = np.append(img, label)  # combine the image matrix and label
+        training_data.append(data)
+
+    image_data = pd.DataFrame(training_data).sample(frac=1)
 
     X, y = image_data.iloc[:, :-1], image_data.iloc[:, -1]
 
@@ -72,3 +70,4 @@ def prepare_x_ray_data(path, labels, img_width, img_height):
 # path = '/Users/gk/Desktop/sample/sample_labels.csv'
 # input_labels = ['Pneumothorax', 'Effusion']
 # X_train, X_val, X_test, y_train, y_val, y_test = prepare_x_ray_data(path, input_labels, 100, 100)
+
