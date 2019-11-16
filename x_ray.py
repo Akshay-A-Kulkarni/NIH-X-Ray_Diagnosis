@@ -5,6 +5,7 @@ import pandas as pd
 from sklearn import preprocessing, metrics
 from sklearn.model_selection import train_test_split
 
+
 class preprocessor:
     '''
     Pre-processes image data into a 2D matrix format acceptable to most ML frameworks
@@ -34,6 +35,7 @@ class preprocessor:
         # Assign numerical Finding Labels to Finding IDs
         label_IDs = {}
         count = 1
+        print("Assigning numerical Finding Labels to Finding IDs...")
         for i in finding_Labels:
             label_IDs[i] = count
             count = count + 1
@@ -53,7 +55,8 @@ class preprocessor:
 
         # Create a data frame of the flat image matrices and associated labels, and shuffle
         training_data = []
-
+        
+        print("Creating a data frame of the flat image matrics & associated labels and then shuffling...")
         for item in result:
             file = item[0]
             label = item[1]
