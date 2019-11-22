@@ -61,7 +61,7 @@ class preprocessor:
             file = item[0]
             label = item[1]
             path = os.path.join(self.image_path, file)
-            img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)  # load the image as a matrix
+            img = cv2.imread(path) # load the image as a matrix
             img = cv2.resize(img, (self.img_width, self.img_height))  # resize the image / matrix
             img = img.flatten()  # flatten the matrix
             data = np.append(img, label)  # combine the image matrix and label
@@ -71,10 +71,10 @@ class preprocessor:
 
         X, y = image_data.iloc[:, :-1], image_data.iloc[:, -1]
 
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
-        X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.2, random_state=1)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1,stratify=y)
+        X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.2, random_state=1,stratify=y_train)
 
-        scaler = preprocessing.StandardScaler()
+        scaler = preprocessing.Normalizer()
         X_train_s = scaler.fit_transform((X_train.values))
         X_train = pd.DataFrame(X_train_s, index=X_train.index, columns=X_train.columns)
         X_val_s = scaler.fit_transform((X_val.values))
@@ -83,7 +83,3 @@ class preprocessor:
         X_test = pd.DataFrame(X_test_s, index=X_test.index, columns=X_test.columns)
 
         return X_train, X_val, X_test, y_train, y_val, y_test
-
-
-
-
