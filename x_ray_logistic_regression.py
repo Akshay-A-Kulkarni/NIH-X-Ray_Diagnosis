@@ -9,6 +9,16 @@ from sklearn.metrics import classification_report
 from sklearn.model_selection import cross_val_score, GridSearchCV
 
 # Use the function (provide a path, select input labels, and call the function)
+<<<<<<< HEAD
+#csv_path = '/Users/gk/Desktop/sample/sample_labels.csv'  #C:\Users\stany\Desktop
+csv_path = 'C:/Users/stany/Desktop/project-data-repo/x_ray_1000.csv'
+#image_path = '/Users/gk/Desktop/sample/sample/images/'
+image_path = 'C:/Users/stany/Desktop/project-data-repo/x_ray_1000_images/'
+input_labels = ['Atelectasis', 'Cardiomegaly', 'Consolidation', 'Edema', 'Effusion', 'Emphysema',
+                 'Fibrosis', 'Hernia', 'Infiltration', 'Mass', 'No Finding', 'Nodule',
+                 'Pleural_Thickening', 'Pneumonia', 'Pneumothorax']
+=======
+>>>>>>> 4c7f6b3a9506f4f5fb163e17b8b49d95cbb2bdb1
 
 # input_labels_1000 = ['Atelectasis', 'Cardiomegaly', 'Consolidation', 'Effusion', 'Infiltration',
 #                      'Mass', 'No Finding', 'Nodule','Pleural_Thickening', 'Pneumothorax']
@@ -119,7 +129,11 @@ preprocessor = preprocessor(csv_path, image_path, 100, 100, input_labels)
 
 X_train, X_val, X_test, y_train, y_val, y_test = preprocessor.prepare_x_ray_data()
 
+<<<<<<< HEAD
+logistic_model = LogisticRegression(solver='lbfgs',random_state=123,max_iter=300)
+=======
 logistic_model = LogisticRegression(solver = 'lbfgs',multi_class='multinomial',max_iter=2000)
+>>>>>>> 4c7f6b3a9506f4f5fb163e17b8b49d95cbb2bdb1
 logistic_model.fit(X_train,y_train)
 logistic_pred = logistic_model.predict(X_test)
 
