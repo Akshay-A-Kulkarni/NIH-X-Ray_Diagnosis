@@ -9,6 +9,6 @@ Implementing Various Supervised Machine Learning Algorithms to classify lung dis
 - Testing out Suitable CNN architechtures[~]
 - Implementing ResNet[~]
 - Performance tuning[~]
-- Trying out our own simple architecture[]
+- Trying out our own simple architecture[~]
 
 
