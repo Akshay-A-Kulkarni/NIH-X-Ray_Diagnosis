@@ -4,11 +4,11 @@ Implementing Various Supervised Machine Learning Algorithms to classify lung dis
 ### Project Steps
 
 - Data EDA and Preprocessing [~]
-- Implmeneting Logistic Regression []
-- Implementing Random Forest []
-- Testing out Suitable CNN architechtures[]
-- Implementing Alexnet/VGGNet/InceptionVResnet
-- Performance tuning
-- Trying out our own simple architecture
+- Implmeneting Logistic Regression [~]
+- Implementing Random Forest [~]
+- Testing out Suitable CNN architechtures[~]
+- Implementing ResNet[~]
+- Performance tuning[~]
+- Trying out our own simple architecture[~]
 
 
